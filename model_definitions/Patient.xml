@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<model>
+	<table>
+		Patients
+	</table>
+	<foreign-keys>
+		<foreign-key name="Pat_Histology" table="Histology" match-column="Hist_Title" select="Hist_ID"></foreign-key>
+		<foreign-key name="Pat_race" table="Race" match-column="Race_Title" select="Race_ID"></foreign-key>
+	</foreign-keys>
+</model>
