@@ -1,17 +1,16 @@
+package DB;
 
 
 public class ForeignKey{
 	private String table;
-	private String column;
-
+	private String matchColumn;
 	private String retCol;
 	
 	public ForeignKey(String retCol,String table, String columm) {
 		super();
 		this.retCol = retCol;
 		this.table = table;
-		this.column = columm;
-
+		this.matchColumn = columm;
 	}
 
 	public String getTable() {
@@ -22,16 +21,16 @@ public class ForeignKey{
 		this.table = table;
 	}
 
-	public String getColumn() {
-		return column;
+	public String getMatchColumn() {
+		return matchColumn;
 	}
 
-	public void setColumn(String columm) {
-		this.column = columm;
+	public void setMatchColumn(String columm) {
+		this.matchColumn = columm;
 	}
 	
 	public String toSQL(String value){
-		return "(SELECT " + retCol + " FROM " + table + " WHERE " + column + "='"+value+"' LIMIT 1)";
+		return "(SELECT " + retCol + " FROM " + table + " WHERE " + matchColumn + "='"+value+"' LIMIT 1)";
 	}
 
 }

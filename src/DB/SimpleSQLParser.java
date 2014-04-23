@@ -1,26 +1,20 @@
+package DB;
+import interfaces.SQLAble;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 
 public class SimpleSQLParser implements SQLAble{
-	private HashMap<String,ForeignKey> foreignKeys;
-	
-	public SimpleSQLParser(){
-		foreignKeys = new HashMap<String,ForeignKey>();
-	}
-	
-	public SimpleSQLParser(HashMap<String, ForeignKey> foreignKeys) {
-		super();
-		this.foreignKeys = foreignKeys;
-	}
 
-	public void addForeignKey(String column, ForeignKey key){
-		foreignKeys.put(column, key);
+	public SimpleSQLParser(){
 	}
+	
 	
 	@Override
-	public String toSql(String tblName,List<String> headers,List<String> columns) {
+	public String toSql(String tblName,List<String> headers,List<String> columns,
+			HashMap<String,ForeignKey> foreignKeys) {
 		StringBuilder builder = new StringBuilder();
 		builder.append("INSERT INTO ");
 		builder.append(tblName);
@@ -61,11 +55,8 @@ public class SimpleSQLParser implements SQLAble{
 			str = str.replace("'N'", "0");
 			str = str.replace("'Y'", "1");
 			str = str.replace("'NA'", "null");
-			ret.add(str);
-			
+			ret.add(str);		
 		}
 		return ret;
 	}
-
-
 }
