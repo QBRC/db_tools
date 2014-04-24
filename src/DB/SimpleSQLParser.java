@@ -5,7 +5,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
+/**
+ * SimpleSQL Parser for standard CSV files where the 1st row
+ * is information about column names. These may differ from
+ * what the DB defines, and should be noted as such using the
+ * TranslationTable in the Model class when appropriate. See
+ * Examples in the drivers.
+ * 
+ * 
+ * @author Eric
+ *
+ */
 public class SimpleSQLParser implements SQLAble{
 
 	public SimpleSQLParser(){
@@ -14,7 +24,7 @@ public class SimpleSQLParser implements SQLAble{
 	
 	@Override
 	public String toSql(String tblName,List<String> headers,List<String> columns,
-			HashMap<String,ForeignKey> foreignKeys) {
+			HashMap<String,ForeignKey> foreignKeys) {;
 		StringBuilder builder = new StringBuilder();
 		builder.append("INSERT INTO ");
 		builder.append(tblName);

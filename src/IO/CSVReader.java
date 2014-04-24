@@ -5,7 +5,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
+/**
+ * Used for reading CSV file and getting
+ * Header information, columns and applying the 
+ * mapping from CSV column definitions to the DB
+ * Column names
+ * 
+ * 
+ * @author Eric
+ *
+ */
 public class CSVReader implements CSVReadable{
 	private String delimeter;
 	

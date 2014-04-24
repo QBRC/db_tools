@@ -6,6 +6,10 @@ import DB.ForeignKey;
 
 /**
  * Used to convert CSV files to sql
+ * Passed into the ToolFacade for different Strategies
+ * 
+ * used for Strategy Pattern for parsing CSV files differently depending 
+ * on what file we are working with
  * @author sroos
  *
  */

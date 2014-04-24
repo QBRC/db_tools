@@ -1,9 +1,32 @@
 package DB;
 
-
+/**
+ * 
+ * Used to store information about foreign keys for a model
+ * 
+ * @author Eric Roos
+ *
+ */
 public class ForeignKey{
+	/**
+	 * 
+	 * The table the foreign key references
+	 * SQL: ....* REFERENCES(#{table})
+	 */
 	private String table;
+	
+	/**
+	 * The column in there WHERE clause
+	 * SQL: ...* WHERE #{matchColumn} = #{value}
+	 * 
+	 */
 	private String matchColumn;
+	
+	/**
+	 * 
+	 * The column in the select clause
+	 * SQL: SELECT #{retCol} ....*
+	 */
 	private String retCol;
 	
 	public ForeignKey(String retCol,String table, String columm) {
