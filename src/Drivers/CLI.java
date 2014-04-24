@@ -38,6 +38,8 @@ public class CLI {
 		ToolFacade facade = new ToolFacade();
 		File file = new File(args[0]);
 		XMLParser parser = new XMLParser();
+		List<String> sql = facade.GetMissingDependencies(file, ",");
+		/*
 		File cnvDecl = new File("model_definitions/CNVData.xml");
 		Model CNVData = new Model(parser.getForeignKeys(cnvDecl),null,parser.getTableName(cnvDecl));
 		File matrix_file = new File("matrix_definitions/cnv_matrix.xml");
@@ -58,6 +60,6 @@ public class CLI {
 		for(String str : sql){
 			System.out.println(str);
 		}
-		
+				
 	}
 }

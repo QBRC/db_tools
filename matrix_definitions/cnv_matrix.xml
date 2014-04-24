@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<matrix>
+	<table>CNVData</table>
+	<horizontal-key>Dat_Sam</horizontal-key>
+	<vertical-key>Dat_Gene</vertical-key>
+	<data-key>Dat_Value</data-key>
+</matrix>
+

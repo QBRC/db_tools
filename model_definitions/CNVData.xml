@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<model>
+	<table>
+		CNVData
+	</table>
+	<foreign-keys>
+		<foreign-key name="Dat_Sam" table="HistologySamples" match-column="Sam_Title" select="Sam_ID"></foreign-key>
+	</foreign-keys>
+</model>
