@@ -1,21 +1,42 @@
 package Drivers;
 
+import interfaces.SQLAble;
+
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
-import DB.ForeignKey;
 import DB.MatrixSQLParser;
 import DB.SimpleSQLParser;
 import Facades.ToolFacade;
-import IO.MappingConstants;
-import IO.XMLParser;
 import Models.Model;
-import Models.ModelType;
 
 public class CLI {
 	
+	public CLI(){
+		
+	}
+	
+	public List<String> convertMatrixtoSql(String inputPath,String modelDefintion, String matrixDefinition,String delimeter) throws IOException{
+		File input_file = new File(inputPath);
+		File model_file = new File(modelDefintion);
+		File matrix_file = new File(matrixDefinition);
+		SQLAble strategy = new MatrixSQLParser(matrix_file);
+		
+		Model model = new Model(model_file,null);
+		
+		return ToolFacade.MatrixToSQL(input_file, delimeter, strategy, model);
+	}
+	
+	public List<String> convertCSVtoSQL(String inputPath,String modelDefinition, String mappingDefinition,String delimeter) throws IOException{
+		File input_file = new File(inputPath);
+		File model_file = new File(modelDefinition);
+		File mapping_file = new File(mappingDefinition);
+		SQLAble strategy = new SimpleSQLParser();
+		Model model = new Model(model_file,mapping_file);
+		
+		return ToolFacade.CSVtoSQL(input_file, delimeter, strategy, model);	
+	}
 	/**
 	 * ENTRY POINT FOR APPLICATION
 	 * 
@@ -35,30 +56,33 @@ public class CLI {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException{
-		ToolFacade facade = new ToolFacade();
-		File file = new File(args[0]);
-		XMLParser parser = new XMLParser();
-		List<String> sql = facade.GetMissingDependencies(file, ",");
-		/*
-		File cnvDecl = new File("model_definitions/CNVData.xml");
-		Model CNVData = new Model(parser.getForeignKeys(cnvDecl),null,parser.getTableName(cnvDecl));
-		File matrix_file = new File("matrix_definitions/cnv_matrix.xml");
+		CLI intf = new CLI();
+		List<String> sql = null;
+		String action = args[0];
+		String input_file = args[1];
+		String model_file = args[2];
+		String definition_file = args[3];
+		String delimeter = args[4];
 		
-		String dataKeyName = parser.getField(matrix_file, "data-key");
-		String verticalKeyName = parser.getField(matrix_file, "vertical-key");
-		String horizontalKeyName = parser.getField(matrix_file, "horizontal-key");
 		
-		MatrixSQLParser sqlParser = new MatrixSQLParser(horizontalKeyName,verticalKeyName, dataKeyName);
-		List<String> sql = facade.MatrixToSQL(file, ",", sqlParser, CNVData);
-		
-		/*List<String> sql = facade.CSVtoSQL(file, ",",new SimpleSQLParser(), new Model(
-					foreignKeys,
-					mappings, 
-					tableName
-				));
-		*/
-		for(String str : sql){
-			System.out.println(str);
+		if(action.compareTo("simple") == 0){ //simple
+			sql = intf.convertCSVtoSQL(input_file, 
+					model_file,
+					definition_file,
+					delimeter);
+		}else if(action.compareTo("matrix") == 0){ //matrix
+			sql = intf.convertMatrixtoSql(input_file, 
+					model_file,
+					definition_file,
+					delimeter);
+		}else{
+			System.err.println("Unknown action.");
+			
+		}
+		if(sql != null){
+			for(String str : sql){
+				System.out.println(str);
+			}
 		}
 				
 	}

@@ -17,7 +17,7 @@ import Models.Model;
 
 public class ToolFacade {
 	
-	public ToolFacade(){
+	private ToolFacade(){
 		
 	}
 	/**
@@ -42,7 +42,7 @@ public class ToolFacade {
 	 * @return
 	 * @throws IOException
 	 */
-	public List<String> GetMissingDependencies(File f, String delimeter) throws IOException{
+	public static List<String> GetMissingDependencies(File f, String delimeter) throws IOException{
 		HashMap<Integer,Set<String>> columnData = new HashMap<Integer,Set<String>>();
 		
 		List<String> missingValues = new ArrayList<String>();
@@ -72,7 +72,7 @@ public class ToolFacade {
 		return missingValues;
 	}
 	
-	public List<String> MatrixToSQL(File f, String delimeter, SQLAble strategy,
+	public static List<String> MatrixToSQL(File f, String delimeter, SQLAble strategy,
 			Model model) throws IOException{
 		HashMap<String,ForeignKey> foreignKeys = model.getForeignKeys();
 		String tblName = model.getTableName();
@@ -99,7 +99,7 @@ public class ToolFacade {
 		return strategy.cleanSql(sqlLines);		
 
 	}
-	public List<String> CSVtoSQL(File f,String delimeter, SQLAble strategy,Model model) throws IOException{
+	public static List<String> CSVtoSQL(File f,String delimeter, SQLAble strategy,Model model) throws IOException{
 		//var definition
 		HashMap<String,String> translationTable = model.getTranslationTable();
 		String tblName = model.getTableName();

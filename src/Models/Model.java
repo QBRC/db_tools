@@ -1,7 +1,10 @@
 package Models;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 import DB.ForeignKey;
+import IO.XMLParser;
 
 /**
  * 
@@ -36,6 +39,15 @@ public class Model {
 	 */
 	protected String tableName;
 
+	public Model(File modelDefintion,File mappingFile) throws IOException{
+		XMLParser parser = new XMLParser();
+		this.foreignKeys = parser.getForeignKeys(modelDefintion);
+		this.tableName = parser.getTableName(modelDefintion);
+		if(mappingFile != null){
+			this.translationTable = parser.getMappings(mappingFile);
+		}
+		
+	}
 	public Model(HashMap<String, ForeignKey> foreignKeys,
 			HashMap<String, String> translationTable, String tableName) {
 		super();

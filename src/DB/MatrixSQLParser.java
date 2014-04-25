@@ -1,9 +1,12 @@
 package DB;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import IO.XMLParser;
 import interfaces.SQLAble;
 /**
  * 
@@ -28,6 +31,12 @@ public class MatrixSQLParser implements SQLAble{
 	private String dataKeyName;
 	
 	
+	public MatrixSQLParser(File matrixDefintion) throws IOException{
+		XMLParser parser = new XMLParser();
+		this.horizontalKeyName = parser.getField(matrixDefintion, "horizontal-key");
+		this.verticalKeyName = parser.getField(matrixDefintion, "vertical-key");
+		this.dataKeyName = parser.getField(matrixDefintion, "data-key");
+	}
 	public MatrixSQLParser(String horizontalKeyName, String verticalKeyName,String dataKeyName) {
 		super();
 		this.verticalKeyName = verticalKeyName;
