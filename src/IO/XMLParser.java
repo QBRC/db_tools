@@ -37,9 +37,11 @@ public class XMLParser {
 		Document xmlFile = getDocument(f);
 		return xmlFile.getElementsByTagName(name).item(0).getTextContent().trim();
 	}
+	
 	public String getTableName(File f) throws IOException{
 		return getField(f,"table");
 	}
+	
 	public HashMap<String,ForeignKey> getForeignKeys(File f) throws IOException{
 		Document xmlFile = getDocument(f);
 		HashMap<String,ForeignKey> foreignKeys = new HashMap<String,ForeignKey>();
